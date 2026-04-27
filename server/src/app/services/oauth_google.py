@@ -13,10 +13,11 @@ Flow:
 """
 
 import secrets
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import Optional
 
 import httpx
+from urllib.parse import urlencode
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -49,7 +50,7 @@ def build_google_auth_url(state: str) -> str:
         "prompt": "consent",            # force consent screen to always get refresh_token
         "state": state,
     }
-    query = "&".join(f"{k}={v}" for k, v in params.items())
+    query = urlencode(params)
     return f"https://accounts.google.com/o/oauth2/v2/auth?{query}"
 
 
@@ -105,9 +106,7 @@ async def get_or_create_google_user(
 
     token_expires_at: Optional[datetime] = None
     if expires_in := google_tokens.get("expires_in"):
-        token_expires_at = datetime.now(tz=timezone.utc).replace(
-            second=datetime.now(tz=timezone.utc).second + int(expires_in)
-        )
+        token_expires_at = datetime.now(tz=timezone.utc) + timedelta(seconds=int(expires_in))
 
     # 1. Look up existing OAuth account
     stmt = (
