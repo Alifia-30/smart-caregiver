@@ -1,7 +1,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "fastapi-worker",
-	"main": "src/worker.py",
+	"main": "src/main.py",
 	"compatibility_date": "2025-11-02",
 	"compatibility_flags": [
 		"python_workers",

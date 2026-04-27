@@ -2,6 +2,8 @@ import os
 import jinja2
 from fastapi import FastAPI, Request
 
+from src.app.routers import auth_google
+
 try:
     from workers import WorkerEntrypoint
 except ImportError:
@@ -20,6 +22,8 @@ environment = jinja2.Environment()
 template = environment.from_string("Hello, {{ name }}!")
 
 app = FastAPI()
+
+app.include_router(auth_google.router)
 
 
 @app.get("/")

@@ -5,7 +5,8 @@
   "scripts": {
     "deploy": "uv run pywrangler deploy",
     "dev": "uv run pywrangler dev",
-    "dev:local": "uvicorn src.worker:app --reload",
+    "dev:uv": "uv run uvicorn src.main:app --reload",
+    "dev:p": "uvicorn src.main:app --reload",
     "start": "uv run pywrangler dev"
   },
   "devDependencies": {
