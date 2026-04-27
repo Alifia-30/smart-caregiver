@@ -1,18 +1,36 @@
-# Byte-compiled / optimized / DLL files
+# Dependencies
+node_modules/
+.venv/
+.venv-workers/
+python_modules/
+bun.lockb
+package-lock.json
+yarn.lock
+uv.lock
+
+# Cloudflare Wrangler
+.wrangler/
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.uv/
 
-# Environments
+# Environment variables
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+.env.local
+.env.*.local
 
-# IDEs and Editors
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
 .vscode/
 .idea/
-*.swp
+
+# Build artifacts
+dist/
+build/

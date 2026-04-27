@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: fastapi-worker
+Version: 0.1.0
+Summary: Python fastapi example
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi
+Requires-Dist: markupsafe
+Requires-Dist: jinja2
+
+# FastAPI + Jinja2 Example
+
+## How to Run
+
+First ensure that `uv` is installed:
+https://docs.astral.sh/uv/getting-started/installation/#standalone-installer
+
+Now, if you run `uv run pywrangler dev` within this directory, it should use the config
+in `wrangler.jsonc` to run the example.
+
+You can also run `uv run pywrangler deploy` to deploy the example.
