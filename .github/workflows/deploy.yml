@@ -3,11 +3,17 @@ name: Deploy to Cloudflare Workers
 on:
   push:
     branches:
-      - main  # Ganti jika nama branch utama Anda bukan 'main'
+      - main
+    paths:
+      - 'server-smart-caregiver/**' # Hanya jalan jika ada perubahan di folder ini
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server-smart-caregiver # Menentukan folder kerja utama
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4

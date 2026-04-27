@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.venv/
+.venv-workers/
+python_modules/
+bun.lockb
+package-lock.json
+yarn.lock
+uv.lock
+
+# Cloudflare Wrangler
+.wrangler/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.uv/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+build/
+
+# Mobile specific (jika ada)
+mobile/node_modules/
+mobile/dist/
