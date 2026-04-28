@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "Advanced GetX Patterns": {
+      "source": "kaakati/rails-enterprise-dev",
+      "sourceType": "github",
+      "skillPath": "plugins/reactree-flutter-dev/skills/advanced-getx-patterns/SKILL.md",
+      "computedHash": "f0e57f58763e684ab4b8dfee48f54890c3de5067561ae583cab98180dfad0206"
+    },
+    "GetX State Management Patterns": {
+      "source": "kaakati/rails-enterprise-dev",
+      "sourceType": "github",
+      "skillPath": "plugins/reactree-flutter-dev/skills/getx-patterns/SKILL.md",
+      "computedHash": "ae50fd0f24577506559b3ed74b98cb6aa93517ffa5fde44c3636ca5700360f5c"
+    }
+  }
+}
