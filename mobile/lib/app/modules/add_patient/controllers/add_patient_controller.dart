@@ -51,24 +51,25 @@ class AddPatientController extends GetxController {
 
     _isLoading.value = true;
     try {
-      final body = {
-        'name': nameController.text.trim(),
-        'age': int.tryParse(ageController.text.trim()) ?? 0,
-        'address': addressController.text.trim(),
-        'phone': phoneController.text.trim(),
-        'blood_type': bloodType.value,
-        'gender': gender.value,
-        'profile_photo': profilePhotoPath.value,
-        'physical_condition': physicalConditionController.text.trim(),
-        'mobility_level': mobilityLevel.value,
-        'medical_history': medicalHistoryController.text.trim(),
-        'allergies': allergiesController.text.trim(),
-        'hobbies': hobbiesController.text.trim(),
-        'notes': notesController.text.trim(),
-      };
-
-      await _repository.create(body);
-      Get.offNamed(Routes.onboarding, arguments: nameController.text.trim());
+      // ── Mock Logic ───────────────────────────────────────
+      // Simulating network delay as requested ("pakai mock dulu")
+      await Future.delayed(const Duration(seconds: 1));
+      
+      final patientName = nameController.text.trim();
+      
+      debugPrint('── Mock Save Patient ──');
+      debugPrint('Name: $patientName');
+      
+      // Navigate to onboarding with the name
+      Get.offNamed(Routes.onboarding, arguments: patientName);
+      
+      Get.snackbar(
+        'Success',
+        'Patient $patientName added successfully (Mock)',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.shade50,
+        colorText: Colors.green.shade900,
+      );
     } catch (e) {
       Get.snackbar(
         'Error',

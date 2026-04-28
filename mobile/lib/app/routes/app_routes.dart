@@ -8,6 +8,7 @@ abstract class Routes {
   static const addPatient = _Paths.addPatient;
   static const onboarding = _Paths.onboarding;
   static const dashboard = _Paths.dashboard;
+  static const INPUT_HEALTH = _Paths.INPUT_HEALTH;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const addPatient = '/add-patient';
   static const onboarding = '/onboarding';
   static const dashboard = '/dashboard';
+  static const INPUT_HEALTH = '/input-health';
 }

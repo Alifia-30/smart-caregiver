@@ -108,7 +108,13 @@ class _OnboardingViewState extends State<OnboardingView>
                 child: Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () => Get.offAllNamed(Routes.home),
+                      onPressed: () => Get.offAllNamed(
+                        Routes.INPUT_HEALTH,
+                        arguments: {
+                          'elderlyId': 'new-patient-id', // Placeholder for actual ID
+                          'elderlyName': patientName,
+                        },
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.accent,
                         foregroundColor: AppColors.onBackground,

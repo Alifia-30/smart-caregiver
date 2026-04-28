@@ -1,14 +1,16 @@
 import 'package:get/get.dart';
 
-import '../modules/auth/bindings/auth_binding.dart';
-import '../modules/auth/views/auth_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/add_patient/bindings/add_patient_binding.dart';
 import '../modules/add_patient/views/add_patient_view.dart';
-import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/auth/bindings/auth_binding.dart';
+import '../modules/auth/views/auth_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+import '../modules/input-health/bindings/input_health_binding.dart';
+import '../modules/input-health/views/input_health_view.dart';
+import '../modules/onboarding/views/onboarding_view.dart';
 
 part 'app_routes.dart';
 
@@ -46,6 +48,11 @@ class AppPages {
       page: () => const DashboardView(),
       binding: DashboardBinding(),
       transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.INPUT_HEALTH,
+      page: () => const InputHealthView(),
+      binding: InputHealthBinding(),
     ),
   ];
 }
