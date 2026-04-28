@@ -3,7 +3,7 @@ name = "fastapi-worker"
 version = "0.1.0"
 description = "Python fastapi example"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
     "fastapi",
     "markupsafe",
@@ -18,4 +18,9 @@ dependencies = [
     "authlib>=1.7.0",
     "uvicorn>=0.34.0",
     "python-dotenv>=1.0.1",
+    "scikit-fuzzy>=0.4.2",
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "packaging>=23.0",
+    "networkx>=3.0",
 ]

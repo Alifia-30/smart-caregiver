@@ -21,7 +21,8 @@ class ElderlyStatus(str, enum.Enum):
 
 class HealthStatus(str, enum.Enum):
     NORMAL = "normal"
-    NEEDS_ATTENTION = "needs_attention"
+    WARNING = "warning"          # set by fuzzy logic analysis
+    NEEDS_ATTENTION = "needs_attention"   # set by threshold-based checks
     CRITICAL = "critical"
 
 
@@ -84,3 +85,6 @@ class HealthParameter(str, enum.Enum):
     HEART_RATE = "heart_rate"
     BODY_TEMPERATURE = "body_temperature"
     BODY_WEIGHT = "body_weight"
+    CHOLESTEROL = "cholesterol"          # mg/dL — metabolic module
+    URIC_ACID = "uric_acid"              # mg/dL — metabolic module
+    SPO2_LEVEL = "spo2_level"            # %     — cardio & infection modules

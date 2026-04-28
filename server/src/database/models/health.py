@@ -57,12 +57,15 @@ class HealthRecord(Base):
     )
 
     # ── Vital parameters (REQ-005) ────────────────────────────────────────────
-    systolic_bp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)      # mmHg
-    diastolic_bp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)     # mmHg
-    blood_sugar: Mapped[Optional[float]] = mapped_column(Float, nullable=True)      # mg/dL
-    heart_rate: Mapped[Optional[float]] = mapped_column(Float, nullable=True)       # bpm
-    body_temperature: Mapped[Optional[float]] = mapped_column(Float, nullable=True) # °C
-    body_weight: Mapped[Optional[float]] = mapped_column(Float, nullable=True)      # kg
+    systolic_bp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)       # mmHg
+    diastolic_bp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)      # mmHg
+    blood_sugar: Mapped[Optional[float]] = mapped_column(Float, nullable=True)       # mg/dL
+    heart_rate: Mapped[Optional[float]] = mapped_column(Float, nullable=True)        # bpm
+    body_temperature: Mapped[Optional[float]] = mapped_column(Float, nullable=True)  # °C
+    body_weight: Mapped[Optional[float]] = mapped_column(Float, nullable=True)       # kg
+    cholesterol: Mapped[Optional[float]] = mapped_column(Float, nullable=True)       # mg/dL
+    uric_acid: Mapped[Optional[float]] = mapped_column(Float, nullable=True)         # mg/dL
+    spo2_level: Mapped[Optional[float]] = mapped_column(Float, nullable=True)        # %
 
     # ── Qualitative notes (REQ-006) ───────────────────────────────────────────
     daily_notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
@@ -72,6 +75,12 @@ class HealthRecord(Base):
     health_status: Mapped[HealthStatus] = mapped_column(
         String(20), nullable=False, default=HealthStatus.NORMAL, index=True
     )
+
+    # ── Fuzzy logic analysis scores (persisted to avoid re-computation) ───────
+    cardio_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True)     # 0–100
+    metabolic_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True)  # 0–100
+    infection_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True)  # 0–100
+    fuzzy_final_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True) # 0–100
 
     # ── When was this measured (not when it was entered) ──────────────────────
     recorded_at: Mapped[datetime] = mapped_column(

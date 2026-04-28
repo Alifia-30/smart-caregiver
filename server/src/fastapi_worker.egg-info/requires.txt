@@ -1,4 +1,6 @@
 fastapi
+markupsafe
+jinja2
 sqlalchemy[asyncio]>=2.0.49
 asyncpg>=0.31.0
 alembic>=1.18.4
@@ -9,11 +11,5 @@ httpx>=0.28.1
 authlib>=1.7.0
 uvicorn>=0.34.0
 python-dotenv>=1.0.1
-markupsafe
-jinja2
-# Fuzzy logic + transitive deps (scikit-fuzzy does not declare all of these)
 scikit-fuzzy>=0.4.2
 numpy>=1.24.0
-scipy>=1.10.0
-packaging>=23.0
-networkx>=3.0

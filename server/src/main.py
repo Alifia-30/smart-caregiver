@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.app.routers import auth_google
+from src.app.routers import auth_google, health
 from dotenv import load_dotenv
 
 # Load .env file
@@ -13,6 +13,7 @@ app = FastAPI(
 
 # Register routers
 app.include_router(auth_google.router)
+app.include_router(health.router)
 
 @app.get("/")
 async def root():
@@ -21,6 +22,6 @@ async def root():
         "docs": "/docs"
     }
 
-@app.get("/health")
+@app.get("/health-check")
 async def health_check():
     return {"status": "healthy"}
