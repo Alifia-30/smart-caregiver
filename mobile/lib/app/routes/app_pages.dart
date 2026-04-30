@@ -9,12 +9,14 @@ import '../modules/splash/views/splash_view.dart';
 import '../modules/tambah_lansia/bindings/tambah_lansia_binding.dart';
 import '../modules/tambah_lansia/views/tambah_lansia_view.dart';
 
+import '../modules/patient_detail/bindings/patient_detail_binding.dart';
+import '../modules/patient_detail/views/patient_detail_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -23,9 +25,9 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.SPLASH,
-      page: () => const SplashView(),
-      binding: SplashBinding(),
+      name: _Paths.PATIENT_DETAIL,
+      page: () => const PatientDetailView(),
+      binding: PatientDetailBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,
@@ -39,4 +41,3 @@ class AppPages {
     ),
   ];
 }
-
