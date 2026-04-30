@@ -4,8 +4,6 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/patient_detail/bindings/patient_detail_binding.dart';
 import '../modules/patient_detail/views/patient_detail_view.dart';
-
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -24,6 +22,5 @@ class AppPages {
       page: () => const PatientDetailView(),
       binding: PatientDetailBinding(),
     ),
-
   ];
 }

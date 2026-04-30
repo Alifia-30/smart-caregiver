@@ -13,3 +13,4 @@ abstract class _Paths {
   static const PATIENT_DETAIL = '/patient-detail';
 }
 
+
