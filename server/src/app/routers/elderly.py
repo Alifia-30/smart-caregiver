@@ -166,7 +166,7 @@ async def get_elderly_profile(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Profil lansia dengan id {profile_id} tidak ditemukan.",
         )
-    access_level, _ = await require_elderly_access(profile_id, current_user, db)
+    _, _, access_level = await require_elderly_access(profile_id, current_user, db)
     return profile
 
 

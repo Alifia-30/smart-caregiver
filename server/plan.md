@@ -2,7 +2,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
 
 **Prioritas Implementasi**
 
-1. **Fondasi Auth & Authorization**
+1. **Fondasi Auth & Authorization** ✅ done
    - Ganti header sementara `X-Caregiver-Id` / `X-User-Id` menjadi dependency JWT: `get_current_user`.
    - Buat helper akses:
      - caregiver pemilik lansia boleh `read/write`.

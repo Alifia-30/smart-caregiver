@@ -126,7 +126,7 @@ async def list_health_records(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ) -> HealthRecordListResponse:
-    _, _ = await require_elderly_access(elderly_id, current_user, db)
+    _, _, _ = await require_elderly_access(elderly_id, current_user, db)
     total, records = await health_service.list_health_records(
         db=db,
         elderly_id=elderly_id,
@@ -147,7 +147,7 @@ async def get_latest_health_record(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ) -> HealthRecordSummary:
-    _, _ = await require_elderly_access(elderly_id, current_user, db)
+    _, _, _ = await require_elderly_access(elderly_id, current_user, db)
     summary = await health_service.get_latest_health_record(
         db=db, elderly_id=elderly_id
     )
