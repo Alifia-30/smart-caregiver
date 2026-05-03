@@ -132,7 +132,7 @@ async def mark_all_notifications_read(
     return MarkReadResponse(success=True, marked_count=marked_count)
 
 
-@router.get("notification-preferences", response_model=NotificationPreferenceList)
+@router.get("/notification-preferences", response_model=NotificationPreferenceList)
 async def get_notification_preferences(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
@@ -161,7 +161,7 @@ async def get_notification_preferences(
     return NotificationPreferenceList(preferences=preference_responses)
 
 
-@router.put("notification-preferences", response_model=NotificationPreferenceResponse)
+@router.put("/notification-preferences", response_model=NotificationPreferenceResponse)
 async def update_notification_preference(
     payload: NotificationPreferenceUpdate,
     current_user: User = Depends(get_current_user),

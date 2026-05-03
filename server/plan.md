@@ -27,7 +27,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
        - bisa reuse list records, tapi tambahkan authorization caregiver/viewer.
    - Ini menutup REQ-008, REQ-009, REQ-010.
 
-3. **Viewer Invitation & Read-Only Access**
+3. **Viewer Invitation & Read-Only Access** ✅ done
    - Buat `viewer_router.py`, `viewer_service.py`, `viewer.py` schema.
    - Endpoint:
      - `POST /elderly/{elderly_id}/viewers/invite`
@@ -40,7 +40,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
    - Tambahkan query dashboard untuk viewer.
    - Ini menutup REQ-011 dan REQ-012.
 
-4. **Notifikasi In-App Dasar**
+4. **Notifikasi In-App Dasar** ✅ done
    - Buat `notification_router.py`, `notification_service.py`, `notification.py` schema.
    - Endpoint:
      - `GET /notifications`

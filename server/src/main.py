@@ -4,6 +4,7 @@ from src.app.routers import auth as auth_router
 from src.app.routers import dashboard
 from src.app.routers import viewer
 from src.app.routers import notification
+from src.app.routers import schedule
 from dotenv import load_dotenv
 
 # Load .env file
@@ -23,6 +24,7 @@ app.include_router(health.router)
 app.include_router(dashboard.router)
 app.include_router(viewer.router)
 app.include_router(notification.router, prefix="/notifications")
+app.include_router(schedule.router)
 
 @app.get("/")
 async def root():
