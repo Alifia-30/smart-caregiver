@@ -86,19 +86,13 @@ async def create_profile(
 async def get_profile(
     db: AsyncSession,
     profile_id: uuid.UUID,
-    caregiver_id: Optional[uuid.UUID] = None,
 ) -> Optional[ElderlyProfileResponse]:
     """Fetch a single elderly profile by id.
 
-    If caregiver_id is provided, the result is filtered to only return
-    profiles belonging to that caregiver (ownership check).
-
     Returns:
-        ElderlyProfileResponse or None if not found / not owned.
+        ElderlyProfileResponse or None if not found.
     """
     query = select(ElderlyProfile).where(ElderlyProfile.id == profile_id)
-    if caregiver_id is not None:
-        query = query.where(ElderlyProfile.caregiver_id == caregiver_id)
 
     result = await db.execute(query)
     profile = result.scalar_one_or_none()

@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from src.app.routers import auth_google, health, elderly
+from src.app.routers import auth as auth_router
 from dotenv import load_dotenv
 
 # Load .env file
@@ -12,6 +13,7 @@ app = FastAPI(
 )
 
 # Register routers
+app.include_router(auth_router.router)
 app.include_router(auth_google.router)
 app.include_router(elderly.router)
 app.include_router(health.router)
