@@ -88,7 +88,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
      - buat `Schedule` dengan `source="ai_approved"`.
    - Ini menutup REQ-016, REQ-017, REQ-018.
 
-7. **Weekly Summary**
+7. **Weekly Summary** ✅ done
    - Buat `summary_service.py`.
    - Logic:
      - ambil data 7 hari terakhir per lansia.
