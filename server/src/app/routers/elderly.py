@@ -13,8 +13,9 @@ Endpoints:
   DELETE /elderly/{id}/permanent   → Hard-delete (permanent, with confirmation)
 
 Authentication:
-  All write endpoints require X-Caregiver-Id header (UUID of the logged-in caregiver).
-  TODO: Replace with JWT bearer dependency when auth middleware is ready.
+  All endpoints require JWT bearer token authentication.
+  - Caregiver can read/write their own elderly profiles
+  - Viewer with accepted invitation can read elderly profiles
 """
 
 from __future__ import annotations
@@ -22,7 +23,7 @@ from __future__ import annotations
 import uuid
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.schemas.elderly import (
@@ -32,43 +33,18 @@ from src.app.schemas.elderly import (
     ElderlyProfileUpdate,
 )
 from src.app.services import elderly_service
+from src.app.core.auth import (
+    AccessLevel,
+    get_current_user,
+    require_caregiver_owner,
+    require_elderly_access,
+    get_viewer_access_elderly_ids,
+)
 from src.database.enums import ElderlyStatus
+from src.database.models.user import User
 from src.database.session import get_db
 
 router = APIRouter(prefix="/elderly", tags=["elderly"])
-
-
-# ── Auth dependency (temporary — swap for JWT later) ──────────────────────────
-
-async def _require_caregiver_id(
-    x_caregiver_id: str = Header(..., alias="X-Caregiver-Id"),
-) -> uuid.UUID:
-    """Extract and validate caregiver UUID from request header.
-
-    Raises 400 if the header is missing or not a valid UUID.
-    TODO: Replace with JWT `get_current_user` dependency.
-    """
-    try:
-        return uuid.UUID(x_caregiver_id)
-    except ValueError:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="X-Caregiver-Id header must be a valid UUID.",
-        )
-
-
-async def _optional_caregiver_id(
-    x_caregiver_id: Optional[str] = Header(None, alias="X-Caregiver-Id"),
-) -> Optional[uuid.UUID]:
-    if x_caregiver_id is None:
-        return None
-    try:
-        return uuid.UUID(x_caregiver_id)
-    except ValueError:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="X-Caregiver-Id header must be a valid UUID.",
-        )
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
@@ -81,14 +57,55 @@ async def _optional_caregiver_id(
     description=(
         "Caregiver membuat profil baru untuk lansia yang dirawatnya. "
         "Satu caregiver dapat memiliki banyak profil lansia (REQ-003). "
-        "Header **X-Caregiver-Id** wajib diisi dengan UUID caregiver."
+        "Requires JWT authentication."
     ),
 )
 async def create_elderly_profile(
     payload: ElderlyProfileCreate,
     db: AsyncSession = Depends(get_db),
-    caregiver_id: uuid.UUID = Depends(_require_caregiver_id),
+    current_user: User = Depends(get_current_user),
 ) -> ElderlyProfileResponse:
+    return await elderly_service.create_profile(
+        db=db,
+        payload=payload,
+        caregiver_id=current_user.id,
+    )
+
+
+@router.get(
+    "",
+    response_model=ElderlyProfileListResponse,
+    summary="Daftar semua profil lansia milik caregiver (REQ-003)",
+    description=(
+        "Mengembalikan semua profil lansia yang dimiliki oleh caregiver ini. "
+        "Mendukung filter status dan pagination. "
+        "Also returns elderly profiles the viewer has accepted access to."
+    ),
+)
+async def list_elderly_profiles(
+    status_filter: Optional[ElderlyStatus] = Query(
+        None,
+        alias="status",
+        description="Filter berdasarkan status: active | inactive | critical",
+    ),
+    limit: int = Query(20, ge=1, le=100, description="Jumlah profil per halaman"),
+    offset: int = Query(0, ge=0, description="Skip N profil"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> ElderlyProfileListResponse:
+    return await elderly_service.list_profiles(
+        db=db,
+        caregiver_id=current_user.id,
+        status=status_filter,
+        limit=limit,
+        offset=offset,
+    )
+async def create_elderly_profile(
+    payload: ElderlyProfileCreate,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> ElderlyProfileResponse:
+    caregiver_id = current_user.id
     return await elderly_service.create_profile(
         db=db,
         payload=payload,
@@ -113,9 +130,10 @@ async def list_elderly_profiles(
     ),
     limit: int = Query(20, ge=1, le=100, description="Jumlah profil per halaman"),
     offset: int = Query(0, ge=0, description="Skip N profil"),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-    caregiver_id: uuid.UUID = Depends(_require_caregiver_id),
 ) -> ElderlyProfileListResponse:
+    caregiver_id = current_user.id
     return await elderly_service.list_profiles(
         db=db,
         caregiver_id=caregiver_id,
@@ -129,23 +147,26 @@ async def list_elderly_profiles(
     "/{profile_id}",
     response_model=ElderlyProfileResponse,
     summary="Detail profil lansia",
-    description="Mengambil detail lengkap satu profil lansia. Hanya bisa diakses oleh caregiver pemilik profil.",
+    description=(
+        "Mengambil detail lengkap satu profil lansia. "
+        "Dapat diakses oleh caregiver pemilik atau viewer dengan invitation accepted."
+    ),
 )
 async def get_elderly_profile(
     profile_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
-    caregiver_id: Optional[uuid.UUID] = Depends(_optional_caregiver_id),
+    current_user: User = Depends(get_current_user),
 ) -> ElderlyProfileResponse:
     profile = await elderly_service.get_profile(
         db=db,
         profile_id=profile_id,
-        caregiver_id=caregiver_id,
     )
     if profile is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Profil lansia dengan id {profile_id} tidak ditemukan.",
         )
+    _, _, access_level = await require_elderly_access(profile_id, current_user, db)
     return profile
 
 
@@ -162,13 +183,14 @@ async def update_elderly_profile(
     profile_id: uuid.UUID,
     payload: ElderlyProfileUpdate,
     db: AsyncSession = Depends(get_db),
-    caregiver_id: uuid.UUID = Depends(_require_caregiver_id),
+    current_user: User = Depends(get_current_user),
 ) -> ElderlyProfileResponse:
+    _, _ = await require_caregiver_owner(profile_id, current_user, db)
     profile = await elderly_service.update_profile(
         db=db,
         profile_id=profile_id,
         payload=payload,
-        caregiver_id=caregiver_id,
+        caregiver_id=current_user.id,
     )
     if profile is None:
         raise HTTPException(
@@ -191,12 +213,13 @@ async def update_elderly_profile(
 async def deactivate_elderly_profile(
     profile_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
-    caregiver_id: uuid.UUID = Depends(_require_caregiver_id),
+    current_user: User = Depends(get_current_user),
 ) -> ElderlyProfileResponse:
+    _, _ = await require_caregiver_owner(profile_id, current_user, db)
     profile = await elderly_service.deactivate_profile(
         db=db,
         profile_id=profile_id,
-        caregiver_id=caregiver_id,
+        caregiver_id=current_user.id,
     )
     if profile is None:
         raise HTTPException(
@@ -220,12 +243,13 @@ async def deactivate_elderly_profile(
 async def delete_elderly_profile_permanent(
     profile_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
-    caregiver_id: uuid.UUID = Depends(_require_caregiver_id),
+    current_user: User = Depends(get_current_user),
 ) -> None:
+    _, _ = await require_caregiver_owner(profile_id, current_user, db)
     deleted = await elderly_service.delete_profile(
         db=db,
         profile_id=profile_id,
-        caregiver_id=caregiver_id,
+        caregiver_id=current_user.id,
     )
     if not deleted:
         raise HTTPException(

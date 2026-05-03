@@ -30,6 +30,8 @@ from src.app.schemas.health import (
 from src.database.enums import HealthStatus
 from src.database.models.health import HealthRecord
 
+from src.app.services import notification_service
+
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -202,6 +204,16 @@ async def create_health_record(
     record.health_status     = _fuzzy_status_to_health_status(fuzzy_result.final_status)
 
     # Session is committed by the get_db() dependency after this function returns
+
+    # ── Create notifications for caregiver and viewers ───────────────────────────
+    health_status_value = record.health_status.value if hasattr(record.health_status, 'value') else str(record.health_status)
+    await notification_service.create_health_record_notification(
+        db=db,
+        elderly_id=record.elderly_id,
+        health_record_id=record.id,
+        health_status=health_status_value,
+    )
+
     return _record_to_response(record, fuzzy_result)
 
 
