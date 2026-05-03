@@ -22,7 +22,7 @@ app.include_router(elderly.router)
 app.include_router(health.router)
 app.include_router(dashboard.router)
 app.include_router(viewer.router)
-app.include_router(notification.router)
+app.include_router(notification.router, prefix="/notifications")
 
 @app.get("/")
 async def root():

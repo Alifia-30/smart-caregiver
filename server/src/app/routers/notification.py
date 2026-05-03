@@ -77,7 +77,7 @@ async def list_notifications(
     return NotificationList(total=total, notifications=notification_responses)
 
 
-@router.get("unread-count", response_model=UnreadCountResponse)
+@router.get("/unread-count", response_model=UnreadCountResponse)
 async def get_unread_count(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
@@ -116,7 +116,7 @@ async def mark_notification_read(
     return MarkReadResponse(success=True, marked_count=1)
 
 
-@router.patch("read-all", response_model=MarkReadResponse)
+@router.patch("/read-all", response_model=MarkReadResponse)
 async def mark_all_notifications_read(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),

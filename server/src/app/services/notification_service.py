@@ -13,7 +13,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import desc, select, and_
+from sqlalchemy import desc, select, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.schemas.notification import (
@@ -162,13 +162,13 @@ async def get_notifications(
     Returns:
         (total_count, list_of_notifications)
     """
-    count_stmt = select(uuid.uuid4()).select_from(Notification).where(
+    count_stmt = select(func.count()).select_from(Notification).where(
         Notification.recipient_id == user_id
     )
     if unread_only:
         count_stmt = count_stmt.where(Notification.is_read == False)
     count_result = await db.execute(count_stmt)
-    total = len(count_result.all())
+    total = count_result.scalar() or 0
 
     stmt = (
         select(Notification)
@@ -200,14 +200,14 @@ async def get_unread_count(
     Returns:
         Number of unread notifications
     """
-    stmt = select(uuid.uuid4()).select_from(Notification).where(
+    stmt = select(func.count()).select_from(Notification).where(
         and_(
             Notification.recipient_id == user_id,
             Notification.is_read == False,
         )
     )
     result = await db.execute(stmt)
-    return len(result.all())
+    return result.scalar() or 0
 
 
 async def mark_as_read(
