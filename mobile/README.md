@@ -1,16 +1,86 @@
-# mobile
+# Smart Caregiver Mobile
 
-A new Flutter project.
+Flutter application untuk caregiver dalam memonitor dan merawat lansia.
 
-## Getting Started
+## Tech Stack
 
-This project is a starting point for a Flutter application.
+- **Framework**: Flutter 3.9+
+- **State Management**: GetX
+- **Local Storage**: GetStorage
+- **Typography**: Google Fonts
+- **UI**: Material Design
 
-A few resources to get you started if this is your first Flutter project:
+## Fitur App
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+| Module | Deskripsi |
+|--------|-----------|
+| Splash | Initialisasi app, loading screen |
+| Home | Dashboard utama untuk caregiver |
+| Patient Detail | Detail informasi & data lansia |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Struktur GetX Pattern
+
+Setiap module terdiri dari:
+- `controllers/` - Logic & state management
+- `views/` - UI screens
+- `bindings/` - Dependency injection
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Flutter SDK 3.9+
+- Dart 3.9+
+
+### Instalasi
+```bash
+cd mobile
+flutter pub get
+```
+
+### Menjalankan App
+```bash
+flutter run
+```
+
+Untuk mode development dengan hot reload:
+```bash
+flutter run -d <device_id>
+```
+
+### Build APK
+```bash
+flutter build apk --debug
+# atau
+flutter build apk --release
+```
+
+## 📂 Struktur Folder
+
+```
+lib/
+├── main.dart                    # Entry point
+└── app/
+    ├── routes/
+    │   ├── app_routes.dart      # Route definitions
+    │   └── app_pages.dart       # Page configurations
+    └── modules/
+        ├── splash/
+        │   ├── controllers/
+        │   ├── views/
+        │   └── bindings/
+        ├── home/
+        │   ├── controllers/
+        │   ├── views/
+        │   └── bindings/
+        └── patient_detail/
+            ├── controllers/
+            ├── views/
+            └── bindings/
+```
+
+## Konfigurasi
+
+Sesuaikan API base URL di `lib/app/core/config.dart` sesuai environment:
+
+- **Development**: `http://localhost:8000`
+- **Production**: URL server production

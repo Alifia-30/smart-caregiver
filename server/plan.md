@@ -14,7 +14,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
      - `POST /auth/refresh`
      - `GET /auth/me`
 
-2. **Dashboard & Tren Kesehatan**
+2. **Dashboard & Tren Kesehatan** ✅ done
    - Buat `dashboard_router.py`, `dashboard_service.py`, `dashboard.py` schema.
    - Endpoint:
      - `GET /dashboard/overview`
