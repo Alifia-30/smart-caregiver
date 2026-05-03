@@ -72,7 +72,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
    - Setelah stabil, baru pakai APScheduler/Celery.
    - Ini menutup REQ-013, REQ-014, dan bagian alarm REQ-015.
 
-6. **AI Recommendation Aktivitas**
+6. **AI Recommendation Aktivitas** ✅ done
    - Buat `recommendation_router.py`, `recommendation_service.py`, `recommendation.py` schema.
    - Endpoint:
      - `POST /elderly/{elderly_id}/recommendations/generate`
@@ -94,7 +94,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
      - ambil data 7 hari terakhir per lansia.
      - hitung rata-rata parameter, jumlah status normal/warning/critical, trend sederhana.
      - buat notifikasi `weekly_summary`.
-   - Untuk MVP: 
+   - Untuk MVP:
      - endpoint internal manual: `POST /internal/jobs/send-weekly-summary`.
    - Setelah stabil:
      - jadwalkan otomatis tiap minggu via APScheduler/Celery.
