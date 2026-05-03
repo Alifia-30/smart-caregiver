@@ -31,6 +31,9 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: str
     GOOGLE_REDIRECT_URI: str               # e.g. https://yourapp.com/auth/google/callback
 
+    # ── GROQ (AI Recommendations) ────────────────────────────────────────────────
+    GROQ_API_KEY: str = ""
+
     # ── CORS ──────────────────────────────────────────────────────────────────
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
 

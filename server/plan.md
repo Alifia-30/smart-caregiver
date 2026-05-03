@@ -55,7 +55,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
      - jika status `critical`, buat notification `critical_alert`.
    - Ini menutup REQ-019 dan REQ-020 versi in-app.
 
-5. **Jadwal & Alarm Pengingat**
+5. **Jadwal & Alarm Pengingat** ✅ done
    - Buat `schedule_router.py`, `schedule_service.py`, `schedule.py` schema.
    - Endpoint:
      - `POST /elderly/{elderly_id}/schedules`
@@ -94,7 +94,7 @@ Berikut plan implementasi fitur yang belum ada berdasarkan [prd.md](/Users/fadil
      - ambil data 7 hari terakhir per lansia.
      - hitung rata-rata parameter, jumlah status normal/warning/critical, trend sederhana.
      - buat notifikasi `weekly_summary`.
-   - Untuk MVP:
+   - Untuk MVP: 
      - endpoint internal manual: `POST /internal/jobs/send-weekly-summary`.
    - Setelah stabil:
      - jadwalkan otomatis tiap minggu via APScheduler/Celery.

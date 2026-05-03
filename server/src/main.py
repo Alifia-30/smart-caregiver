@@ -5,6 +5,7 @@ from src.app.routers import dashboard
 from src.app.routers import viewer
 from src.app.routers import notification
 from src.app.routers import schedule
+from src.app.routers import recommendation
 from dotenv import load_dotenv
 
 # Load .env file
@@ -25,6 +26,7 @@ app.include_router(dashboard.router)
 app.include_router(viewer.router)
 app.include_router(notification.router, prefix="/notifications")
 app.include_router(schedule.router)
+app.include_router(recommendation.router)
 
 @app.get("/")
 async def root():
