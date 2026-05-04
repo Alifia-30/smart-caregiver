@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareTrack - Overview Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e5e2e1",
+                      "inverse-on-surface": "#f4f0ef",
+                      "on-surface-variant": "#47464b",
+                      "tertiary-fixed": "#e8e2d9",
+                      "primary-fixed": "#e4e1e6",
+                      "surface-container-highest": "#e5e2e1",
+                      "secondary": "#5d5e66",
+                      "primary-fixed-dim": "#c8c5ca",
+                      "surface-container": "#f1eded",
+                      "surface-container-low": "#f7f3f2",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#494640",
+                      "on-background": "#1c1b1c",
+                      "tertiary-fixed-dim": "#cbc6bd",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-container": "#88837c",
+                      "on-surface": "#1c1b1c",
+                      "outline-variant": "#c8c5cb",
+                      "secondary-container": "#e3e1ec",
+                      "surface-container-lowest": "#ffffff",
+                      "primary": "#000000",
+                      "on-primary-fixed-variant": "#47464a",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#1a1b22",
+                      "surface-tint": "#5f5e61",
+                      "inverse-primary": "#c8c5ca",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#1d1b16",
+                      "outline": "#77767b",
+                      "on-primary-container": "#858387",
+                      "primary-container": "#1b1b1e",
+                      "tertiary-container": "#1d1b16",
+                      "inverse-surface": "#313030",
+                      "tertiary": "#000000",
+                      "on-primary-fixed": "#1b1b1e",
+                      "on-error-container": "#93000a",
+                      "surface": "#fdf8f8",
+                      "secondary-fixed": "#e3e1ec",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "surface-bright": "#fdf8f8",
+                      "background": "#fdf8f8",
+                      "surface-container-high": "#ebe7e7",
+                      "on-secondary-container": "#63646c",
+                      "surface-dim": "#ddd9d9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "stack-gap": "12px",
+                      "md": "16px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "xxl": "48px",
+                      "sm": "8px",
+                      "container-padding": "20px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "30px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        /* Utilities to hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Soft, ambient shadows described in style guidance */
+        .shadow-ambient {
+            box-shadow: 0 4px 16px rgba(161, 161, 170, 0.15);
+        }
+        .shadow-ambient-active {
+            box-shadow: 0 2px 8px rgba(161, 161, 170, 0.2);
+            transform: translateY(2px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen selection:bg-tertiary-fixed selection:text-on-background">
+<!-- TopAppBar -->
+<header class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-['Plus_Jakarta_Sans'] font-semibold tracking-tight fixed docked full-width top-0 flex justify-between items-center w-full px-5 py-4 pt-8 z-40 flat no-shadows">
+<div class="flex items-center gap-3">
+<img alt="User profile photo" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container-lowest shadow-sm" data-alt="close up portrait of a mature woman with soft grey hair, warm gentle smile, natural daylight, soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZlq1xgvk5BK4_-jV4sQZ00zdzSTzosNET1zdyTp9jlHVkikNWeAfRhB8DHBsVzuk9Eo6oTBxbUWo35odbepsiUB7tCl3r-E6ufNyc3-uHhnP3LdVXhetcvi9z_757SeupdKoS1PusP3bSk0pyxt3cgbjYQRS899azL5eGZCjFJBqWEEzFsQxBDiZtOQdaXGmilryQ2i_f38O4byoWgGsX4dQHVp1_5BfvHj3VLienV_HmFxhyJeB5TSBkKj00Mfp_wAq-hrffhEs"/>
+</div>
+<h1 class="text-2xl font-bold text-zinc-900 dark:text-zinc-50">CareTrack</h1>
+<button class="hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors active:scale-95 transition-transform duration-200 w-10 h-10 rounded-full flex items-center justify-center text-zinc-900 dark:text-zinc-50 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-zinc-50"></span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[100px] pb-[120px] px-container-padding max-w-2xl mx-auto flex flex-col gap-xl">
+<!-- Patient Header -->
+<section class="flex flex-col gap-sm">
+<h2 class="font-display text-display text-on-background">Eleanor Vance, <span class="text-outline">82</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[85%] leading-relaxed">
+                Good morning. Eleanor rested well through the night and woke up in bright spirits.
+            </p>
+</section>
+<!-- Daily Vitals (Horizontal Scroll) -->
+<section class="flex flex-col gap-stack-gap">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-background">Morning Vitals</h3>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container py-1 px-3 rounded-full">Today, 08:30 AM</span>
+</div>
+<div class="flex overflow-x-auto gap-md pb-2 no-scrollbar -mx-container-padding px-container-padding snap-x">
+<!-- Vital Tile: Heart Rate -->
+<div class="snap-start shrink-0 w-[140px] bg-surface-container-lowest shadow-ambient p-4 border border-outline-variant/30 flex flex-col gap-stack-gap rounded-3xl">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-md text-label-md">Heart Rate</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-display text-on-background">72</span>
+<span class="font-label-sm text-label-sm text-outline">bpm</span>
+</div>
+</div>
+<!-- Vital Tile: Blood Pressure -->
+<div class="snap-start shrink-0 w-[140px] bg-surface-container-lowest shadow-ambient p-4 border border-outline-variant/30 flex flex-col gap-stack-gap rounded-3xl">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">blood_pressure</span>
+<span class="font-label-md text-label-md">Blood Press.</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-display text-on-background">120<span class="text-xl text-outline font-medium">/80</span></span>
+</div>
+</div>
+<!-- Vital Tile: SpO2 -->
+<div class="snap-start shrink-0 w-[140px] bg-surface-container-lowest shadow-ambient p-4 border border-outline-variant/30 flex flex-col gap-stack-gap rounded-3xl">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">air</span>
+<span class="font-label-md text-label-md">Blood O2</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-display text-on-background">98</span>
+<span class="font-label-sm text-label-sm text-outline">%</span>
+</div>
+</div>
+<!-- Vital Tile: Temperature -->
+<div class="snap-start shrink-0 w-[140px] bg-surface-container-lowest shadow-ambient p-4 border border-outline-variant/30 flex flex-col gap-stack-gap rounded-3xl">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">device_thermostat</span>
+<span class="font-label-md text-label-md">Temp</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-display text-on-background">98.2</span>
+<span class="font-label-sm text-label-sm text-outline">°F</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Trend Chart (Bento Card) -->
+<section class="bg-surface-container-lowest rounded-xl shadow-ambient p-container-padding border border-outline-variant/30 flex flex-col gap-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-background">7-Day Stability</h3>
+<button class="text-primary hover:bg-surface-container p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<!-- Minimal SVG Chart mimicking a steady trend -->
+<div class="w-full h-32 relative mt-2 text-primary">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 40">
+<!-- Soft grid lines -->
+<line stroke="currentColor" stroke-dasharray="2 2" stroke-opacity="0.05" stroke-width="0.5" x1="0" x2="100" y1="10" y2="10"></line>
+<line stroke="currentColor" stroke-dasharray="2 2" stroke-opacity="0.05" stroke-width="0.5" x1="0" x2="100" y1="20" y2="20"></line>
+<line stroke="currentColor" stroke-dasharray="2 2" stroke-opacity="0.05" stroke-width="0.5" x1="0" x2="100" y1="30" y2="30"></line>
+<!-- Line path (Zinc/Dark tone) -->
+<path d="M0,25 C15,22 25,28 40,20 C55,12 70,25 85,18 C95,13 100,15 100,15" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<!-- Soft fill below line -->
+<path d="M0,25 C15,22 25,28 40,20 C55,12 70,25 85,18 C95,13 100,15 100,15 L100,40 L0,40 Z" fill="url(#chartGradient)" opacity="0.15"></path>
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="currentColor"></stop>
+<stop offset="100%" stop-color="currentColor" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Data points -->
+<circle cx="40" cy="20" fill="currentColor" r="3"></circle>
+<circle cx="85" cy="18" fill="currentColor" r="3"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="font-label-sm text-label-sm text-outline">Mon</span>
+<span class="font-label-sm text-label-sm text-outline">Wed</span>
+<span class="font-label-sm text-label-sm text-outline">Fri</span>
+<span class="font-label-sm text-label-sm text-outline">Sun</span>
+</div>
+</section>
+<!-- Quick Action / Note -->
+<section>
+<button class="w-full bg-surface-container p-4 flex items-center gap-3 border border-outline-variant/20 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-200 rounded-full px-6">
+<div class="bg-primary-container text-on-primary-container w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+</div>
+<div class="flex flex-col items-start text-left">
+<span class="font-label-md text-label-md text-on-background">Add Journal Entry</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Record mood, meals, or events</span>
+</div>
+<span class="material-symbols-outlined text-outline ml-auto">chevron_right</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md font-['Plus_Jakarta_Sans'] text-[11px] font-medium docked full-width bottom-0 rounded-t-3xl border-t border-zinc-200 dark:border-zinc-800 shadow-[0_-4px_16px_rgba(161,161,170,0.15)] fixed left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 md:hidden">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center text-amber-500 dark:text-amber-400 font-bold scale-110 active:scale-90 transition-all duration-300 ease-out hover:text-amber-400 dark:hover:text-amber-300 w-16">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="mt-1">Home</span>
+</button>
+<!-- Health (Inactive) -->
+<button class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 active:scale-90 transition-all duration-300 ease-out hover:text-amber-400 dark:hover:text-amber-300 w-16">
+<span class="material-symbols-outlined text-[24px]">medical_services</span>
+<span class="mt-1">Health</span>
+</button>
+<!-- Schedule (Inactive) -->
+<button class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 active:scale-90 transition-all duration-300 ease-out hover:text-amber-400 dark:hover:text-amber-300 w-16">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+<span class="mt-1">Schedule</span>
+</button>
+<!-- Profile (Inactive) -->
+<button class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 active:scale-90 transition-all duration-300 ease-out hover:text-amber-400 dark:hover:text-amber-300 w-16">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

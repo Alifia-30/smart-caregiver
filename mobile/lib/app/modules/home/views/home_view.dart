@@ -161,7 +161,7 @@ class HomeView extends GetView<HomeController> {
     required String imageUrl,
   }) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.PATIENT_DETAIL),
+      onTap: () => Get.toNamed(Routes.DASHBOARD),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(20),

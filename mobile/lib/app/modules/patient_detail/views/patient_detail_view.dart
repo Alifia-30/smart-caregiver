@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/patient_detail_controller.dart';
 
@@ -9,438 +8,258 @@ class PatientDetailView extends GetView<PatientDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    const Color backgroundColor = Color(0xFFF9F9F9);
-    const Color primaryColor = Color(0xFF000000);
-    const Color onPrimaryContainerColor = Color(0xFF848484);
-    const Color secondaryContainerColor = Color(0xFFD3E5CE);
-    const Color onSecondaryContainerColor = Color(0xFF576755);
-    
-    // Vital Colors
-    const Color tdColor = Color(0xFFE9E7FD);
-    const Color gulaColor = Color(0xFFFFEAD8);
-    const Color suhuColor = Color(0xFFFFF8D6);
-
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: SafeArea(
-        child: Column(
+      backgroundColor: const Color(0xFFF9F9F9),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF1B1B1B)),
+          onPressed: () => Get.back(),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Custom Top App Bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () => Get.back(),
-                    icon: const Icon(Icons.arrow_back),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    'Patient Details',
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Spacer(),
-                  const Icon(Icons.person_outline),
-                ],
+            const Text(
+              'Riwayat Kesehatan',
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFF1B1B1B),
               ),
             ),
-
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 16),
-                    // Profile Header
-                    Row(
-                      children: [
-                        Text(
-                          'Budi Santoso',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: primaryColor,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: secondaryContainerColor,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: Text(
-                            'NORMAL',
-                            style: GoogleFonts.plusJakartaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: onSecondaryContainerColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      '65 Tahun',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 16,
-                        color: onPrimaryContainerColor,
-                      ),
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // Vitals Section
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildVitalCard(
-                            label: 'TD',
-                            value: '120/80',
-                            unit: 'mmHg',
-                            color: tdColor,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildVitalCard(
-                            label: 'Gula',
-                            value: '110',
-                            unit: 'mg/dL',
-                            color: gulaColor,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildVitalCard(
-                            label: 'Suhu',
-                            value: '36.5',
-                            unit: '°C',
-                            color: suhuColor,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // Health Trend Section
-                    Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
-                            blurRadius: 40,
-                            offset: const Offset(0, 20),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Health Trend',
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: primaryColor,
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF3F3F3),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Row(
-                                  children: [
-                                    _buildToggleOption('7 Hari', true),
-                                    _buildToggleOption('30 Hari', false),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 24),
-                          // Chart Placeholder
-                          SizedBox(
-                            height: 160,
-                            width: double.infinity,
-                            child: CustomPaint(
-                              painter: SimpleChartPainter(),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              'Sen',
-                              'Sel',
-                              'Rab',
-                              'Kam',
-                              'Jum',
-                              'Sab',
-                              'Min'
-                            ]
-                                .map((day) => Text(
-                                      day,
-                                      style: GoogleFonts.plusJakartaSans(
-                                        fontSize: 10,
-                                        color: const Color(0xFFB4B4B4),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // History Section
-                    Text(
-                      'Riwayat Cek Kesehatan',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildHistoryItem(
-                      day: '24',
-                      month: 'OKT',
-                      status: 'STABIL',
-                      statusColor: secondaryContainerColor,
-                      onStatusColor: onSecondaryContainerColor,
-                      description:
-                          'Kondisi fisik prima, tekanan darah dalam batas normal setelah istirahat.',
-                    ),
-                    const SizedBox(height: 12),
-                    _buildHistoryItem(
-                      day: '20',
-                      month: 'OKT',
-                      status: 'OBSERVASI',
-                      statusColor: const Color(0xFFFFEAD8),
-                      onStatusColor: const Color(0xFF997F6E),
-                      description:
-                          'Sedikit peningkatan kadar gula pagi hari, disarankan diet rendah karbo.',
-                    ),
-                    const SizedBox(height: 12),
-                    _buildHistoryItem(
-                      day: '15',
-                      month: 'OKT',
-                      status: 'STABIL',
-                      statusColor: secondaryContainerColor,
-                      onStatusColor: onSecondaryContainerColor,
-                      description:
-                          'Check-up rutin pasca medikasi, hasil laboratorium menunjukkan progres baik.',
-                    ),
-                    const SizedBox(height: 100), // Space for Bottom Nav/FAB
-                  ],
+            Obx(() => Text(
+                  controller.patientName.value,
+                  style: const TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF4C4546),
+                  ),
+                )),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: Color(0xFF1B1B1B)),
+            onPressed: () {},
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.0),
+          child: Container(
+            color: const Color(0xFFF5F5F4),
+            height: 1.0,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
+              child: Text(
+                'Oktober 2023',
+                style: TextStyle(
+                  fontFamily: 'Plus Jakarta Sans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF4C4546), // on-surface-variant
                 ),
               ),
             ),
+            const SizedBox(height: 8),
+            Obx(() {
+              return Column(
+                children: controller.records.map((record) {
+                  if (record['isInsight'] == true) {
+                    return _buildInsightCard(
+                      record['title'] as String,
+                      record['subtitle'] as String,
+                    );
+                  }
+                  return _buildRecordCard(
+                    status: record['status'] as String,
+                    date: record['date'] as String,
+                    measurements: record['measurements'] as String,
+                    notes: record['notes'] as String,
+                    color: Color(record['color'] as int),
+                    textColor: Color(record['textColor'] as int),
+                  );
+                }).toList(),
+              );
+            }),
+            const SizedBox(height: 24), // bottom padding
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.black,
-        shape: const CircleBorder(),
-        child: const Icon(Icons.add, color: Colors.white, size: 32),
-      ),
-      bottomNavigationBar: _buildBottomNavBar(),
+      bottomNavigationBar: _buildCustomBottomNavigationBar(),
     );
   }
 
-  Widget _buildVitalCard({
-    required String label,
-    required String value,
-    required String unit,
-    required Color color,
-  }) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(24),
+  Widget _buildCustomBottomNavigationBar() {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(color: Color(0xFFF5F5F4), width: 1),
         ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavItem(
+                icon: Icons.home_outlined,
+                label: 'Home',
+                isActive: false,
+                onTap: () {
+                  // Navigate to home if needed
+                },
+              ),
+              _buildNavItem(
+                icon: Icons.favorite,
+                label: 'Health',
+                isActive: true,
+                onTap: () {},
+              ),
+              _buildNavItem(
+                icon: Icons.calendar_today_outlined,
+                label: 'Schedule',
+                isActive: false,
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem({
+    required IconData icon,
+    required String label,
+    required bool isActive,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: isActive
+            ? BoxDecoration(
+                color: const Color(0xFFF5F5F5), // Light grey background
+                borderRadius: BorderRadius.circular(16),
+              )
+            : null,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            Icon(
+              icon,
+              color: isActive ? const Color(0xFF1B1B1B) : const Color(0xFFA3A3A3),
+              size: 24,
+            ),
+            const SizedBox(height: 4),
             Text(
               label,
-              style: GoogleFonts.plusJakartaSans(
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
                 fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xFF717171),
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                color: isActive ? const Color(0xFF1B1B1B) : const Color(0xFFA3A3A3),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  value,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  unit,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: const Color(0xFF717171),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildToggleOption(String text, bool active) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      decoration: BoxDecoration(
-        color: active ? Colors.white : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: active
-            ? [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ]
-            : [],
-      ),
-      child: Text(
-        text,
-        style: GoogleFonts.plusJakartaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: active ? Colors.black : const Color(0xFF848484),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHistoryItem({
-    required String day,
-    required String month,
+  Widget _buildRecordCard({
     required String status,
-    required Color statusColor,
-    required Color onStatusColor,
-    required String description,
+    required String date,
+    required String measurements,
+    required String notes,
+    required Color color,
+    required Color textColor,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 30,
-            offset: const Offset(0, 10),
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 20,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              color: const Color(0xFFEEEEEE),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  month,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFFB4B4B4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: textColor,
                   ),
                 ),
-                Text(
-                  day,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+              ),
+              Text(
+                date,
+                style: const TextStyle(
+                  fontFamily: 'Plus Jakarta Sans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF4C4546),
                 ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            measurements,
+            style: const TextStyle(
+              fontFamily: 'Plus Jakarta Sans',
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF1B1B1B),
+              letterSpacing: -0.24,
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: statusColor,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Text(
-                        status,
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: onStatusColor,
-                        ),
-                      ),
-                    ),
-                    const Icon(Icons.chevron_right,
-                        size: 16, color: Color(0xFFD4D4D4)),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 12,
-                    color: const Color(0xFF848484),
-                  ),
-                ),
-              ],
+          const SizedBox(height: 8),
+          Text(
+            notes,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontFamily: 'Plus Jakarta Sans',
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFF4C4546),
             ),
           ),
         ],
@@ -448,94 +267,40 @@ class PatientDetailView extends GetView<PatientDetailController> {
     );
   }
 
-
-  Widget _buildBottomNavBar() {
+  Widget _buildInsightCard(String title, String subtitle) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+      height: 128,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        border: const Border(top: BorderSide(color: Color(0xFFF1F1F1))),
+        color: const Color(0xFFD3E5CE), // secondary-container
+        borderRadius: BorderRadius.circular(24),
       ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(Icons.home_filled, 'Home', true),
-            _buildNavItem(Icons.favorite_outline, 'Health', false),
-            _buildNavItem(Icons.calendar_today_outlined, 'Schedule', false),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool active) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: active
-          ? BoxDecoration(
-              color: const Color(0xFFF1F1F1),
-              borderRadius: BorderRadius.circular(16),
-            )
-          : null,
+      padding: const EdgeInsets.all(24),
+      alignment: Alignment.bottomLeft,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: active ? Colors.black : const Color(0xFFB4B4B4)),
-          const SizedBox(height: 4),
           Text(
-            label,
-            style: GoogleFonts.plusJakartaSans(
-              fontSize: 11,
+            title,
+            style: const TextStyle(
+              fontFamily: 'Plus Jakarta Sans',
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF576755), // on-secondary-container
+            ),
+          ),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontFamily: 'Plus Jakarta Sans',
+              fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: active ? Colors.black : const Color(0xFFB4B4B4),
+              color: Color(0xFF576755),
             ),
           ),
         ],
       ),
     );
   }
-}
-
-class SimpleChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    final path = Path();
-    path.moveTo(0, size.height * 0.875);
-    path.quadraticBezierTo(
-        size.width * 0.15, size.height * 0.8, size.width * 0.25, size.height * 0.625);
-    path.quadraticBezierTo(
-        size.width * 0.375, size.height * 0.7, size.width * 0.5, size.height * 0.7);
-    path.quadraticBezierTo(
-        size.width * 0.625, size.height * 0.7, size.width * 0.75, size.height * 0.375);
-    path.quadraticBezierTo(
-        size.width * 0.875, size.height * 0.5, size.width, size.height * 0.5);
-
-    canvas.drawPath(path, paint);
-
-    final dotPaint = Paint()..color = Colors.black;
-    canvas.drawCircle(Offset(size.width * 0.25, size.height * 0.625), 2, dotPaint);
-    canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.7), 2, dotPaint);
-    canvas.drawCircle(Offset(size.width * 0.75, size.height * 0.375), 2, dotPaint);
-    
-    // Draw grid lines
-    final gridPaint = Paint()
-      ..color = Colors.black.withOpacity(0.05)
-      ..strokeWidth = 1;
-      
-    for (int i = 1; i <= 4; i++) {
-      double y = size.height * i / 4;
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

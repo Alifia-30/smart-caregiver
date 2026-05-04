@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Masuk - CareTrack</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#5e5e5e",
+                        "outline": "#7e7576",
+                        "on-surface-variant": "#4c4546",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-container": "#997f6e",
+                        "on-secondary-container": "#576755",
+                        "primary-container": "#1b1b1b",
+                        "outline-variant": "#cfc4c5",
+                        "secondary-fixed": "#d6e7d0",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f3f3f3",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1b1b",
+                        "surface-container": "#eeeeee",
+                        "inverse-surface": "#303030",
+                        "tertiary-container": "#28180c",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#fddcc9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#3c4b3a",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#848484",
+                        "on-tertiary-fixed": "#28180c",
+                        "surface": "#f9f9f9",
+                        "inverse-primary": "#c6c6c6",
+                        "secondary-container": "#d3e5ce",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "primary": "#000000",
+                        "on-background": "#1b1b1b",
+                        "surface-bright": "#f9f9f9",
+                        "background": "#f9f9f9",
+                        "surface-dim": "#dadada",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#dfc0ae",
+                        "secondary": "#536250",
+                        "on-secondary-fixed": "#111f11",
+                        "secondary-fixed-dim": "#bacbb5",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#584234"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "container-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "caption": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F9F9F9;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center">
+<!-- Top Branding -->
+<header class="w-full flex justify-center pt-12 pb-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="spa">spa</span>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tighter">CareTrack</h1>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-md px-container-margin flex flex-col flex-grow">
+<!-- Welcome Message -->
+<section class="mb-10 text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Selamat Datang</h2>
+<p class="font-body-md text-body-md text-outline">Masuk untuk memantau kesehatan lansia</p>
+</section>
+<!-- Social Login -->
+<button class="w-full flex items-center justify-center gap-3 py-4 bg-surface-container-lowest border border-outline-variant rounded-xl font-label-md text-label-md text-on-surface active:scale-95 transition-transform duration-200 shadow-sm">
+<img alt="Google Icon" class="w-5 h-5" data-alt="Small Google logo icon with its signature four colors on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdqNBw018qw4HdFzevmx0LEoCqn5tHwcQCEID6piHxKX7OAjvMiWv4cRSacBWP43aDFS2dyyrhxYXZnM6R_RPwYwXJ4qhbT018XJg7smLHH6bXKQ-E5ADYzQx69_1es6hQ9LqdjRZIuMFxZSeB6WFEStKoj7HQ5_j72BMkoSYTI8HZq3v8UjIGJ5-VvW5U7_yidcSzWJWBmuF4rE_HIF_d4SkR0qib2Y_kts4Obs6qqIyMlmhD_699F9bAHdPpvTcNtssucWHHuk0"/>
+            Masuk dengan Google
+        </button>
+<!-- Separator -->
+<div class="flex items-center my-8">
+<div class="flex-grow h-px bg-outline-variant"></div>
+<span class="px-4 font-caption text-caption text-outline">atau</span>
+<div class="flex-grow h-px bg-outline-variant"></div>
+</div>
+<!-- Login Form -->
+<form class="space-y-6">
+<!-- Email Field -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface ml-1" for="email">Email</label>
+<input class="w-full px-4 py-4 rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-0 focus:border-primary transition-colors text-body-md font-body-md placeholder:text-outline/50" id="email" placeholder="contoh@email.com" type="email"/>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center px-1">
+<label class="font-label-md text-label-md text-on-surface" for="password">Kata Sandi</label>
+<a class="font-caption text-caption text-outline hover:text-primary transition-colors" href="#">Lupa Kata Sandi?</a>
+</div>
+<input class="w-full px-4 py-4 rounded-xl border border-outline-variant bg-surface-container-lowest focus:ring-0 focus:border-primary transition-colors text-body-md font-body-md placeholder:text-outline/50" id="password" placeholder="••••••••" type="password"/>
+</div>
+<!-- Primary Action -->
+<button class="w-full py-5 bg-primary text-on-primary rounded-xl font-headline-md text-label-md uppercase tracking-wider shadow-lg active:scale-95 transition-all duration-200 mt-4" type="submit">
+                Masuk
+            </button>
+</form>
+<!-- Illustration / Spacer -->
+<div class="flex-grow flex items-center justify-center py-12">
+<div class="w-32 h-32 opacity-10 bg-gradient-to-br from-secondary to-tertiary rounded-full blur-2xl"></div>
+</div>
+<!-- Footer / Secondary Action -->
+<footer class="pb-10 text-center">
+<p class="font-caption text-caption text-outline">
+                Belum punya akun? <a class="text-primary font-bold hover:underline" href="#">Daftar</a>
+</p>
+</footer>
+</main>
+<!-- Background Decorative Elements -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none overflow-hidden">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl"></div>
+<div class="absolute top-1/2 -right-24 w-64 h-64 bg-tertiary-fixed/10 rounded-full blur-3xl"></div>
+</div>
+</body></html>

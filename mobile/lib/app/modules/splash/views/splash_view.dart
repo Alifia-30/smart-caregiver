@@ -7,72 +7,95 @@ class SplashView extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 216, 248, 207), // plain background color as requested
-      body: SizedBox.expand(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Main Branding Container
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Logo Icon
-                const Icon(
-                  Icons.eco,
-                  size: 64,
-                  color: Color(0xFF000000), // primary
-                ),
-                const SizedBox(height: 16),
-                // Brand Name
-                const Text(
-                  'CareTrack',
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.64, // -0.02em
-                    color: Color(0xFF000000), // primary
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // Tagline
-                Text(
-                  'Calmly tracking your wellness journey',
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.14, // 0.01em
-                    color: const Color(
-                      0xFF4C4546,
-                    ).withValues(alpha: 0.6), // on-surface-variant/60
-                  ),
-                ),
-              ],
-            ),
+    final size = MediaQuery.of(context).size;
 
-            // Loading / Progress Indicator
-            Positioned(
-              bottom: 96,
-              child: SizedBox(
-                width: 48,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: const LinearProgressIndicator(
-                    minHeight: 2,
-                    backgroundColor: Color(
-                      0xFFE2E2E2,
-                    ), // surface-container-highest
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Color(0xFF000000),
-                    ), // primary
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          // Dark Blue Top Background with Curve
+          Positioned(
+            top: -size.height * 0.1,
+            left: -size.width * 0.5,
+            right: -size.width * 0.5,
+            height: size.height * 0.6,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFF0B1221), // Dark blue background
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(800), // Very wide curve
+                ),
+              ),
+              // Subtle background patterns can be added here if needed
+            ),
+          ),
+
+          // Main Content
+          Column(
+            children: [
+              // Spacer to position the logo on the curve's edge
+              SizedBox(height: size.height * 0.5 - 60),
+
+              // Logo in a white circle
+              Center(
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 30,
+                        spreadRadius: 5,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.eco, // Keeping the eco leaf icon
+                      size: 60,
+                      color: Color(0xFF2E6343),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+              const SizedBox(height: 32),
+
+              // Brand Name
+              const Text(
+                'CareTrack',
+                style: TextStyle(
+                  fontFamily: 'Plus Jakarta Sans',
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF1B1B1B),
+                  letterSpacing: -1.0,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Tagline
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.0),
+                child: Text(
+                  'Pantau pasien, kelola perawatan dengan tenang',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF4C4546),
+                  ),
+                ),
+              ),
+
+              const Spacer(),
+            ],
+          ),
+        ],
       ),
     );
   }
